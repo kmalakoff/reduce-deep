@@ -18,8 +18,6 @@ function flattenDeep(array) {
 }
 
 describe('flatten methods', function () {
-  var array = [1, [2, [3, [4]], 5]];
-
   it('should treat sparse arrays as dense', function () {
     var array = [[1, 2, 3], Array(3)];
     var expected = [1, 2, 3];
@@ -46,13 +44,14 @@ describe('flatten methods', function () {
   });
 
   it('should support flattening of nested arrays', function () {
+    var array = [1, [2, [3, [4]], 5]];
+
     assert.deepStrictEqual(flattenDeep(array), [1, 2, 3, 4, 5]);
   });
 
   it('should return an empty array for non array-like objects', function () {
-    var expected = [];
     var nonArray = { '0': 'a' };
 
-    assert.deepStrictEqual(flattenDeep(nonArray), expected);
+    assert.deepStrictEqual(flattenDeep(nonArray), []);
   });
 });
