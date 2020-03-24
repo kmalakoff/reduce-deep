@@ -1,0 +1,43 @@
+{
+  "name": "reduce-deep",
+  "version": "1.0.0",
+  "description": "Deep reduce an array",
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha . test/**/*.test.js",
+    "lint": "eslint .",
+    "format": "prettier --write '**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kmalakoff/reduce-deep.git"
+  },
+  "keywords": [
+    "deep",
+    "reduce",
+    "array",
+    "flatten",
+    "flattenDeep",
+    "join",
+    "joinDeep"
+  ],
+  "author": "Kevin Malakoff <kmalakoff@gmail.com> (https://github.com/kmalakoff)",
+  "license": "MIT",
+  "homepage": "https://github.com/kmalakoff/reduce-deep",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^7.1.1",
+    "prettier": "^2.0.2"
+  }
+}
