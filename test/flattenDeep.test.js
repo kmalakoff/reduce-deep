@@ -1,5 +1,21 @@
 var assert = require('assert');
-var flattenDeep = require('..').flattenDeep;
+
+var reduceDeep = require('..');
+
+function flattenDeep(array) {
+  var length = array == null ? 0 : array.length;
+
+  return length
+    ? reduceDeep(
+        array,
+        function (memo, value) {
+          memo.push(value);
+          return memo;
+        },
+        []
+      )
+    : [];
+}
 
 describe('flatten methods', function () {
   var array = [1, [2, [3, [4]], 5]];
