@@ -12,7 +12,7 @@ function reduceDeep(array, fn, options) {
 }
 
 module.exports = function (array, fn, memo) {
-  var options = { memo };
+  var options = { memo: memo };
   reduceDeep(array, fn, options);
   return options.memo;
 };
