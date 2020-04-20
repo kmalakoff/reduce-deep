@@ -1,7 +1,7 @@
 var assert = require('assert');
 var constant = require('lodash.constant');
 
-var reduceDeep = require('..');
+var reduceDeep = require('../..');
 
 function flattenDeep(array) {
   var length = array == null ? 0 : array.length;
@@ -37,7 +37,7 @@ describe('flatten methods', function () {
   it('should flatten `arguments` objects', function () {
     var array = [args, [args]];
 
-    assert.deepStrictEqual(flattenDeep(array), [1, 2, 3, 1, 2, 3]);
+    assert.deepEqual(flattenDeep(array), [1, 2, 3, 1, 2, 3]);
   });
 
   it('should treat sparse arrays as dense', function () {
@@ -46,27 +46,26 @@ describe('flatten methods', function () {
 
     expected.push(undefined, undefined, undefined);
     var actual = flattenDeep(array);
-    assert.deepStrictEqual(actual, expected);
+    assert.deepEqual(actual, expected);
     assert.ok('4' in actual);
   });
 
   it('should flatten objects with a truthy `Symbol.isConcatSpreadable` value', function () {
-    if (Symbol && Symbol.isConcatSpreadable) {
-      var object = { '0': 'a', length: 1 };
-      var array = [object];
-      var expected = constant(['a'])();
+    if (typeof Symbol === 'undefined' || !Symbol.isConcatSpreadable) return;
+    var object = { '0': 'a', length: 1 };
+    var array = [object];
+    var expected = constant(['a'])();
 
-      object[Symbol.isConcatSpreadable] = true;
-      var actual = flattenDeep(array);
-      assert.deepStrictEqual(actual, expected);
-    }
+    object[Symbol.isConcatSpreadable] = true;
+    var actual = flattenDeep(array);
+    assert.deepEqual(actual, expected);
   });
 
   // TODO: figure out how to handle sparse arrays
   // it('should work with extremely large arrays', function () {
   //   var expected = Array(5e5);
   //   try {
-  //     assert.deepStrictEqual(flattenDeep([expected]), expected);
+  //     assert.deepEqual(flattenDeep([expected]), expected);
   //   } catch (e) {
   //     assert.ok(false, e.message);
   //   }
@@ -75,18 +74,18 @@ describe('flatten methods', function () {
   it('should work with empty arrays', function () {
     var array = [[], [[]], [[], [[[]]]]];
 
-    assert.deepStrictEqual(flattenDeep(array), []);
+    assert.deepEqual(flattenDeep(array), []);
   });
 
   it('should support flattening of nested arrays', function () {
     var array = [1, [2, [3, [4]], 5]];
 
-    assert.deepStrictEqual(flattenDeep(array), [1, 2, 3, 4, 5]);
+    assert.deepEqual(flattenDeep(array), [1, 2, 3, 4, 5]);
   });
 
   it('should return an empty array for non array-like objects', function () {
     var nonArray = { '0': 'a' };
 
-    assert.deepStrictEqual(flattenDeep(nonArray), []);
+    assert.deepEqual(flattenDeep(nonArray), []);
   });
 });
