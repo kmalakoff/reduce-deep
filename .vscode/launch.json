@@ -12,6 +12,24 @@
       "args": ["--timeout", "999999", "--colors", "${workspaceFolder}/test/spec/**/*.test.js"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Memory Benchmark",
+      "cwd": "${workspaceFolder}/benchmark",
+      "program": "${workspaceFolder}/benchmark/memory/index.js",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Operations Benchmark",
+      "cwd": "${workspaceFolder}/benchmark",
+      "program": "${workspaceFolder}/benchmark/operations/index.js",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
