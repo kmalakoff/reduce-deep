@@ -52,7 +52,7 @@ describe('flatten methods', function () {
 
   it('should flatten objects with a truthy `Symbol.isConcatSpreadable` value', function () {
     if (typeof Symbol === 'undefined' || !Symbol.isConcatSpreadable) return;
-    var object = { '0': 'a', length: 1 };
+    var object = { 0: 'a', length: 1 };
     var array = [object];
     var expected = constant(['a'])();
 
@@ -84,7 +84,7 @@ describe('flatten methods', function () {
   });
 
   it('should return an empty array for non array-like objects', function () {
-    var nonArray = { '0': 'a' };
+    var nonArray = { 0: 'a' };
 
     assert.deepEqual(flattenDeep(nonArray), []);
   });
