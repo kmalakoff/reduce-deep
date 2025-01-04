@@ -14,7 +14,7 @@
   "homepage": "https://github.com/kmalakoff/reduce-deep",
   "repository": {
     "type": "git",
-    "url": "git@github.com:kmalakoff/reduce-deep.git"
+    "url": "git+ssh://git@github.com/kmalakoff/reduce-deep.git"
   },
   "license": "MIT",
   "author": "Kevin Malakoff <kmalakoff@gmail.com> (https://github.com/kmalakoff)",
