@@ -1,8 +1,8 @@
-var isFlattenable = require('isflattenable');
+import isFlattenable from 'isflattenable';
 
 function reduceDeep(array, fn, options) {
-  var value;
-  for (var i = 0; i < array.length; i++) {
+  let value;
+  for (let i = 0; i < array.length; i++) {
     value = array[i];
     if (isFlattenable(value)) options.memo = reduceDeep(value, fn, options);
     else options.memo = fn(options.memo, value, array, i);
@@ -11,8 +11,8 @@ function reduceDeep(array, fn, options) {
   return options.memo;
 }
 
-module.exports = function (array, fn, memo) {
-  var options = { memo: memo };
+export default function reduceDeeep(array, fn, memo) {
+  const options = { memo: memo };
   reduceDeep(array, fn, options);
   return options.memo;
-};
+}
