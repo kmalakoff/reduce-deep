@@ -31,13 +31,12 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "isflattenable": "^1.1.9"
+    "isflattenable": "^1.1.10"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "^22.10.6",
-    "lodash.constant": "^3.0.0"
+    "@types/mocha": "*",
+    "@types/node": "*",
+    "lodash.constant": "*"
   },
   "engines": {
     "node": ">=0.8"
