@@ -1,1 +1,1 @@
-ignores: ["@types/*", "reduce-deep", "@biomejs/*"]
+ignores: ["reduce-deep"]
