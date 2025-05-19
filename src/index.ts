@@ -1,9 +1,8 @@
 import isFlattenable from 'isflattenable';
 
 function reduceDeep(array, fn, options) {
-  let value;
   for (let i = 0; i < array.length; i++) {
-    value = array[i];
+    const value = array[i];
     if (isFlattenable(value)) options.memo = reduceDeep(value, fn, options);
     else options.memo = fn(options.memo, value, array, i);
   }
