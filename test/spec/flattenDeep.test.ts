@@ -1,7 +1,8 @@
-const assert = require('assert');
-const constant = require('lodash.constant');
+import assert from 'assert';
+import constant from 'lodash.constant';
 
-const reduceDeep = require('reduce-deep');
+// @ts-ignore
+import reduceDeep from 'reduce-deep';
 
 function flattenDeep(array) {
   const length = array == null ? 0 : array.length;
