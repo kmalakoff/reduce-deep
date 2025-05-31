@@ -1,17 +1,13 @@
 import isFlattenable from 'isflattenable';
 
-function reduceDeep(array, fn, options) {
+export type ReduceFn<T, V> = (memo: V, item: T, array?: T[], index?: number) => V;
+
+export default function reduceDeep<T, V>(array: T[], fn: ReduceFn<T, V>, memo: V): V {
+  let result: V = memo;
   for (let i = 0; i < array.length; i++) {
     const value = array[i];
-    if (isFlattenable(value)) options.memo = reduceDeep(value, fn, options);
-    else options.memo = fn(options.memo, value, array, i);
+    if (isFlattenable(value)) result = reduceDeep<T, V>(value as T[], fn, result);
+    else result = fn(result, value, array, i);
   }
-
-  return options.memo;
-}
-
-export default function reduceDeeep(array, fn, memo) {
-  const options = { memo: memo };
-  reduceDeep(array, fn, options);
-  return options.memo;
+  return result;
 }
