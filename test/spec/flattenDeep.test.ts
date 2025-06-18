@@ -27,7 +27,7 @@ function flattenDeep(array) {
  * @returns {Object} Returns the converted `arguments` object.
  */
 function toArgs(array) {
-  // biome-ignore lint/style/noArguments: <explanation>
+  // biome-ignore lint/complexity/noArguments: Apply arguments
   return (() => arguments).apply(undefined, array);
 }
 
