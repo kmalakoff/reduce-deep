@@ -1,7 +1,6 @@
 import assert from 'assert';
 import constant from 'lodash.constant';
 
-// @ts-ignore
 import reduceDeep from 'reduce-deep';
 
 function flattenDeep(array) {
