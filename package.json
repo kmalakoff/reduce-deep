@@ -41,7 +41,7 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "isflattenable": "^1.2.8"
+    "isflattenable": "^1.2.9"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
