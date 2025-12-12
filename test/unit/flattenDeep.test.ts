@@ -62,7 +62,7 @@ describe('flatten methods', () => {
 
   // TODO: figure out how to handle sparse arrays
   // it('should work with extremely large arrays', function () {
-  //   var expected = Array(5e5);
+  //   let expected = Array(5e5);
   //   try {
   //     assert.deepEqual(flattenDeep([expected]), expected);
   //   } catch (e) {
