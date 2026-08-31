@@ -41,17 +41,23 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "isflattenable": ">=1.1.1"
+    "isflattenable": "^1.1.1"
   },
   "devDependencies": {
     "@types/mocha": "*",
     "@types/node": "*",
-    "lodash.constant": ">=2.4.0",
+    "lodash.constant": "^3.0.0",
     "node-version-use": "*",
     "ts-dev-stack": "*",
     "tsds-config": "*"
   },
   "engines": {
     "node": ">=0.8"
+  },
+  "allowScripts": {
+    "node-filename-to-dist-paths": true,
+    "node-semvers": true,
+    "node-version-use": true,
+    "thread-sleep-compat": true
   }
 }

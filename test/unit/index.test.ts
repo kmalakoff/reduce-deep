@@ -3,17 +3,17 @@ import constant from 'lodash.constant';
 
 import reduceDeep from 'reduce-deep';
 
-function flattenDeep(array) {
+function flattenDeep(array: unknown[]): unknown[] {
   const length = array == null ? 0 : array.length;
 
   return length
     ? reduceDeep(
         array,
-        (memo, value) => {
+        (memo: unknown[], value: unknown) => {
           memo.push(value);
           return memo;
         },
-        []
+        [] as unknown[]
       )
     : [];
 }
@@ -25,9 +25,11 @@ function flattenDeep(array) {
  * @param {Array} array The array to convert.
  * @returns {Object} Returns the converted `arguments` object.
  */
-function toArgs(array) {
-  // biome-ignore lint/complexity/noArguments: Apply arguments
-  return (() => arguments).apply(undefined, array);
+function toArgs(array: unknown): IArguments {
+  return function (_args: unknown) {
+    // biome-ignore lint/complexity/noArguments: Apply arguments
+    return arguments;
+  }.apply(undefined, [array]);
 }
 
 const args = toArgs([1, 2, 3]);
@@ -43,7 +45,7 @@ describe('flatten methods', () => {
     const array = [[1, 2, 3], Array(3)];
     const expected = [1, 2, 3];
 
-    expected.push(undefined, undefined, undefined);
+    expected.push(undefined as unknown as number, undefined as unknown as number, undefined as unknown as number);
     const actual = flattenDeep(array);
     assert.deepEqual(actual, expected);
     assert.ok('4' in actual);
@@ -51,7 +53,10 @@ describe('flatten methods', () => {
 
   it('should flatten objects with a truthy `Symbol.isConcatSpreadable` value', () => {
     if (typeof Symbol === 'undefined' || !Symbol.isConcatSpreadable) return;
-    const object = { 0: 'a', length: 1 };
+    const object: { 0: string; length: number; [Symbol.isConcatSpreadable]?: boolean } = {
+      0: 'a',
+      length: 1,
+    };
     const array = [object];
     const expected = constant(['a'])();
 
@@ -85,6 +90,6 @@ describe('flatten methods', () => {
   it('should return an empty array for non array-like objects', () => {
     const nonArray = { 0: 'a' };
 
-    assert.deepEqual(flattenDeep(nonArray), []);
+    assert.deepEqual(flattenDeep(nonArray as unknown as unknown[]), []);
   });
 });
