@@ -1,9 +1,10 @@
+var isFlattenable = require('isflattenable');
+
 function reduceDeep(array, fn, options) {
   var value;
-
   for (var i = 0; i < array.length; i++) {
     value = array[i];
-    if (Array.isArray(value)) options.memo = reduceDeep(value, fn, options);
+    if (isFlattenable(value)) options.memo = reduceDeep(value, fn, options);
     else options.memo = fn(options.memo, value, array, i);
   }
 

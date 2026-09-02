@@ -1,4 +1,5 @@
 var assert = require('assert');
+var constant = require('lodash.constant');
 
 var reduceDeep = require('..');
 
@@ -17,8 +18,27 @@ function flattenDeep(array) {
     : [];
 }
 
+/**
+ * Converts `array` to an `arguments` object.
+ *
+ * @private
+ * @param {Array} array The array to convert.
+ * @returns {Object} Returns the converted `arguments` object.
+ */
+function toArgs(array) {
+  return function () {
+    return arguments;
+  }.apply(undefined, array);
+}
+
+var args = toArgs([1, 2, 3]);
+
 describe('flatten methods', function () {
-  var array = [1, [2, [3, [4]], 5]];
+  it('should flatten `arguments` objects', function () {
+    var array = [args, [args]];
+
+    assert.deepStrictEqual(flattenDeep(array), [1, 2, 3, 1, 2, 3]);
+  });
 
   it('should treat sparse arrays as dense', function () {
     var array = [[1, 2, 3], Array(3)];
@@ -30,7 +50,20 @@ describe('flatten methods', function () {
     assert.ok('4' in actual);
   });
 
-  // it("should work with extremely large arrays", function () {
+  it('should flatten objects with a truthy `Symbol.isConcatSpreadable` value', function () {
+    if (Symbol && Symbol.isConcatSpreadable) {
+      var object = { '0': 'a', length: 1 };
+      var array = [object];
+      var expected = constant(['a'])();
+
+      object[Symbol.isConcatSpreadable] = true;
+      var actual = flattenDeep(array);
+      assert.deepStrictEqual(actual, expected);
+    }
+  });
+
+  // TODO: figure out how to handle sparse arrays
+  // it('should work with extremely large arrays', function () {
   //   var expected = Array(5e5);
   //   try {
   //     assert.deepStrictEqual(flattenDeep([expected]), expected);
@@ -46,13 +79,14 @@ describe('flatten methods', function () {
   });
 
   it('should support flattening of nested arrays', function () {
+    var array = [1, [2, [3, [4]], 5]];
+
     assert.deepStrictEqual(flattenDeep(array), [1, 2, 3, 4, 5]);
   });
 
   it('should return an empty array for non array-like objects', function () {
-    var expected = [];
     var nonArray = { '0': 'a' };
 
-    assert.deepStrictEqual(flattenDeep(nonArray), expected);
+    assert.deepStrictEqual(flattenDeep(nonArray), []);
   });
 });
