@@ -1,25 +1,20 @@
-## reduce-deep
+# reduce-deep
 
-Deep reduce an array.
+Reduce the non-array values in a nested array into one result.
 
+```bash
+npm install reduce-deep
 ```
-var reduceDeep = require('reduce-deep');
-var assert = require('assert');
 
-function flattenDeep(array) {
-  return reduceDeep(
-    array,
-    function (memo, value) {
-      memo.push(value);
-      return memo;
-    },
-    []
-  );
-}
+```js
+import reduceDeep from 'reduce-deep';
 
-var array1 = [1, [2, [3, [4]], 5]];
-assert.deepStrictEqual(flattenDeep(array1), [1, 2, 3, 4, 5]);
+const values = [1, [2, [3, 4]], 5];
+const total = reduceDeep(values, (sum, value) => sum + value, 0);
 
-var array2 = [[], [[]], [[], [[[]]]]];
-assert.deepStrictEqual(flattenDeep(array2), []);
+console.log(total); // 15
 ```
+
+The reducer receives `(memo, value, containingArray, index)`. Arrays,
+`arguments` objects, and values marked with `Symbol.isConcatSpreadable` are
+traversed recursively.
